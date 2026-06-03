@@ -432,6 +432,19 @@ def main() -> int:
             pg_conn.rollback()
         else:
             insert_rows(pg_conn, insert_batch)
+
+            # Add net new candidates to status table
+            if insert_batch:
+                with pg_conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        UPDATE status
+                           SET candidates = COALESCE(candidates, 0) + %s
+                         WHERE language = %s
+                        """,
+                        (len(insert_batch), lang),
+                    )
+
             pg_conn.commit()
 
         print_report(
