@@ -331,7 +331,7 @@ def bot_fields(label: str, path: Path = BOTS_JSON) -> Tuple[str, str, str, str]:
 
 def make_direct_wf_client(label: str, path: Path = BOTS_JSON) -> Tuple[WordfeudClientLite, str, str]:
     bot_id, wf_username, email, password = bot_fields(label, path)
-    base_url = (os.getenv("WF_BASE_URL") or "https://game.wordfeud.com/wf").strip()
+    base_url = (os.getenv("WF_BASE_URL") or "https://api.wordfeud.com/wf").strip()
     timeout_s = float((os.getenv("WF_HTTP_TIMEOUT_S") or "45").strip())
     cli = WordfeudClientLite(base_url=base_url, timeout_s=timeout_s, debug=False)
     try:

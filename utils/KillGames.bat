@@ -1,1 +1,0 @@
-powershell .\KillGames.ps1
